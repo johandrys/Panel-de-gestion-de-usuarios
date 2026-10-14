@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Meta viewport: necesario para que la página sea responsive en celular -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de gestión de usuarios</title>
+
+  <!-- Fuente (si no carga, el navegador usa una fuente del sistema) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos externa -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="encabezado">
+    <h1>Panel de gestión de usuarios</h1>
+    <p>Busca, agrega, edita y elimina usuarios. Los cambios duran mientras la página esté abierta.</p>
+  </header>
+
+  <!-- Espacio para mensajes de estado: cargando, errores y confirmaciones -->
+  <p id="mensaje" class="mensaje info" role="status" aria-live="polite">Cargando usuarios...</p>
+
+  <main class="contenido">
+
+    <!-- ===== Formulario: agregar y modificar ===== -->
+    <section class="panel panel-formulario" aria-labelledby="titulo-formulario">
+      <h2 id="titulo-formulario">Nuevo usuario</h2>
+
+      <!-- novalidate: la validación la hacemos nosotros con JavaScript -->
+      <form id="formulario" novalidate>
+        <div class="campo">
+          <label for="campo-id">Id</label>
+          <input type="text" id="campo-id" name="id" inputmode="numeric" autocomplete="off" placeholder="Ej: 11">
+        </div>
+
+        <div class="campo">
+          <label for="campo-nombre">Nombre</label>
+          <input type="text" id="campo-nombre" name="nombre" autocomplete="off" placeholder="Nombre completo">
+        </div>
+
+        <div class="campo">
+          <label for="campo-correo">Correo</label>
+          <input type="email" id="campo-correo" name="correo" autocomplete="off" placeholder="nombre@correo.com">
+        </div>
+
+        <div class="campo">
+          <label for="campo-ciudad">Ciudad</label>
+          <input type="text" id="campo-ciudad" name="ciudad" autocomplete="off" placeholder="Ciudad">
+        </div>
+
+        <div class="acciones-formulario">
+          <!-- El texto de este botón cambia entre "Agregar" y "Guardar cambios" -->
+          <button type="submit" id="btn-enviar" class="btn btn-primario">Agregar</button>
+          <button type="button" id="btn-cancelar" class="btn btn-secundario" hidden>Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== Buscador y tabla ===== -->
+    <section class="panel panel-tabla" aria-labelledby="titulo-tabla">
+      <h2 id="titulo-tabla" class="sr-only">Lista de usuarios</h2>
+
+      <div class="barra-busqueda">
+        <div class="campo campo-buscador">
+          <label for="buscador">Buscar por nombre</label>
+          <input type="search" id="buscador" autocomplete="off" placeholder="Escribe para filtrar...">
+        </div>
+        <p id="contador" class="contador"></p>
+      </div>
+
+      <div class="tabla-contenedor">
+        <table>
+          <caption class="sr-only">Usuarios registrados</caption>
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Ciudad</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <!-- JavaScript llena este tbody dinámicamente -->
+          <tbody id="cuerpo-tabla"></tbody>
+        </table>
+      </div>
+
+      <details class="ciudades">
+        <summary>Usuarios por ciudad</summary>
+        <ul id="lista-ciudades"></ul>
+      </details>
+    </section>
+
+  </main>
+
+  <!-- JavaScript externo, enlazado justo antes de cerrar el body -->
+  <script src="script.js"></script>
+</body>
+</html>
